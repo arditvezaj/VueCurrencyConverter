@@ -15,7 +15,7 @@
         </select>
       </div>
 
-      <button>Change sides</button>
+      <button>⇄</button>
 
       <div class="main">
         <label for="to">To</label>
@@ -35,7 +35,7 @@
       </div>
       <div class="main">
         <label for="result">Result</label>
-        <input type="number" name="result" disabled/>
+        <input type="number" name="result" disabled />
       </div>
     </div>
   </section>
@@ -72,11 +72,31 @@ input {
   margin-bottom: 1rem;
   width: 12rem;
   height: 3rem;
+  border-radius: 5px;
+  border: 1px solid black;
+  text-align: center;
 }
 
 select,
 input,
 label {
   font-size: 1.2rem;
+}
+
+button {
+  margin-top: 1rem;
+  font-size: 1.8rem;
+  font-weight: bold;
+  width: 3rem;
+  height: 3rem;
+  border: none;
+  border-radius: 100%;
+  background-color: rgb(18, 33, 202);
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: rgb(48, 68, 185);
 }
 </style>
