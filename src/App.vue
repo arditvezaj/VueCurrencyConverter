@@ -1,4 +1,21 @@
-<script setup></script>
+<script setup>
+import { ref } from "vue";
+
+const amount = ref(0);
+const result = ref(0);
+const from = ref("CHF - Swiss Franc");
+const to = ref("EUR - Euro");
+
+const exchangeRates = {
+  dollar: 1,
+  eur: 0.86,
+  pound: 0.76,
+};
+
+const convert = () => {
+  result.value = amount.value * exchangeRates.eur;
+};
+</script>
 
 <template>
   <section>
@@ -15,7 +32,7 @@
         </select>
       </div>
 
-      <button>⇄</button>
+      <button id="change-sides">⇄</button>
 
       <div class="main">
         <label for="to">To</label>
@@ -28,14 +45,16 @@
       </div>
     </div>
 
+    <button @click="convert" id="convert">Convert</button>
+
     <div class="body">
       <div class="main">
         <label for="amount">Amount</label>
-        <input type="number" name="amount" />
+        <input type="number" name="amount" v-model="amount" />
       </div>
       <div class="main">
         <label for="result">Result</label>
-        <input type="number" name="result" disabled />
+        <input type="number" name="result" v-model="result" />
       </div>
     </div>
   </section>
@@ -86,17 +105,23 @@ label {
 button {
   margin-top: 1rem;
   font-size: 1.8rem;
-  font-weight: bold;
-  width: 3rem;
-  height: 3rem;
   border: none;
-  border-radius: 100%;
   background-color: rgb(18, 33, 202);
   color: white;
   cursor: pointer;
 }
-
 button:hover {
   background-color: rgb(48, 68, 185);
+}
+
+#change-sides {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 100%;
+}
+
+#convert {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
 }
 </style>
