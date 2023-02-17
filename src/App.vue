@@ -1,19 +1,24 @@
 <script setup>
 import { ref } from "vue";
 
-const amount = ref(0);
-const result = ref(0);
-const from = ref("CHF - Swiss Franc");
-const to = ref("EUR - Euro");
+const amount = ref();
+const result = ref();
+const fromCurrency = ref("USD");
+const toCurrency = ref("EUR");
+const currencies = ["USD", "CHF", "EUR", "GBP"];
 
 const exchangeRates = {
-  dollar: 1,
-  eur: 0.86,
-  pound: 0.76,
+  USD: 1,
+  EUR: 0.86,
+  GBP: 0.76,
+  CHF: 0.93,
 };
 
 const convert = () => {
-  result.value = amount.value * exchangeRates.eur;
+  result.value = (
+    (amount.value * exchangeRates[toCurrency.value]) /
+    exchangeRates[fromCurrency.value]
+  ).toFixed(2);
 };
 </script>
 
@@ -23,24 +28,22 @@ const convert = () => {
     <h3>Easiest and simplest Money Converter in Internet</h3>
     <div class="body">
       <div class="main">
-        <label for="from">From</label>
-        <select name="from" id="from">
-          <option value="franc">CHF - Swiss Franc</option>
-          <option value="euro">EUR - Euro</option>
-          <option value="dollar">USD - Dollar</option>
-          <option value="pound">GBP - British Pound</option>
+        <label>From</label>
+        <select v-model="fromCurrency" id="from">
+          <option v-for="currency in currencies" :value="currency">
+            {{ currency }}
+          </option>
         </select>
       </div>
 
       <button id="change-sides">⇄</button>
 
       <div class="main">
-        <label for="to">To</label>
-        <select name="to" id="to">
-          <option value="franc">CHF - Swiss Franc</option>
-          <option value="euro">EUR - Euro</option>
-          <option value="dollar">USD - Dollar</option>
-          <option value="pound">GBP - British Pound</option>
+        <label>To</label>
+        <select v-model="toCurrency" id="from">
+          <option v-for="currency in currencies" :value="currency">
+            {{ currency }}
+          </option>
         </select>
       </div>
     </div>
@@ -49,12 +52,12 @@ const convert = () => {
 
     <div class="body">
       <div class="main">
-        <label for="amount">Amount</label>
-        <input type="number" name="amount" v-model="amount" />
+        <label>Amount</label>
+        <input type="number" v-model="amount" />
       </div>
       <div class="main">
-        <label for="result">Result</label>
-        <input type="number" name="result" v-model="result" />
+        <label>Result</label>
+        <input type="number" v-model="result" readonly />
       </div>
     </div>
   </section>
