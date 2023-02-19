@@ -49,7 +49,7 @@ const convertCurrency = () => {
 <template>
   <section>
     <h1>Money Converter</h1>
-    <h3>Easiest and simplest Currency Converter in Internet</h3>
+    <h3>Easiest and simplest Currency Converter in the Internet</h3>
     <div class="body">
       <div class="main">
         <label>From</label>
@@ -92,9 +92,11 @@ const convertCurrency = () => {
 
 <style scoped>
 section {
-  margin: 4rem 25%;
+  margin: 0;
+  padding: 3rem 19rem;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   background-color: rgb(108, 148, 242);
   border-radius: 8px;
@@ -118,7 +120,7 @@ h1 {
 
 select,
 input {
-  margin-bottom: 1rem;
+  margin: 0 1rem 1rem 1rem;
   width: 12rem;
   height: 3rem;
   border-radius: 5px;
@@ -159,9 +161,12 @@ button:hover {
   h1 {
     font-size: 2rem;
   }
+
   section {
-    margin: 4rem 1rem;
+    margin: 0.5rem;
+    padding: 1rem;
   }
+
   select,
   input {
     width: 7rem;
@@ -169,6 +174,7 @@ button:hover {
   }
 
   button {
+    text-align: center;
     font-size: 1.4rem;
   }
 }
