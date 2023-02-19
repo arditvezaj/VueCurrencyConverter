@@ -5,19 +5,44 @@ const amount = ref();
 const result = ref();
 const fromCurrency = ref("USD");
 const toCurrency = ref("EUR");
-const currencies = ["USD", "CHF", "EUR", "GBP"];
+const currencies = [
+  "USD",
+  "CHF",
+  "EUR",
+  "ALL",
+  "MKD",
+  "TRY",
+  "GBP",
+  "AED",
+  "CNY",
+  "INR",
+  "JPY",
+  "SAR",
+  "RUB",
+];
+const lastlyUpdated = ref();
 
-const exchangeRates = {
-  USD: 1,
-  EUR: 0.86,
-  GBP: 0.76,
-  CHF: 0.93,
+const exchangeRates = ref({});
+
+fetch(
+  `https://v6.exchangerate-api.com/v6/0714b1826cd73f6106ea6d5a/latest/${fromCurrency.value}`
+)
+  .then((response) => response.json())
+  .then((data) => {
+    lastlyUpdated.value = data.time_last_update_utc;
+    exchangeRates.value = data.conversion_rates;
+  });
+
+const changeSides = () => {
+  const temp = fromCurrency.value;
+  fromCurrency.value = toCurrency.value;
+  toCurrency.value = temp;
 };
 
-const convert = () => {
+const convertCurrency = () => {
   result.value = (
-    (amount.value * exchangeRates[toCurrency.value]) /
-    exchangeRates[fromCurrency.value]
+    (amount.value * exchangeRates.value[toCurrency.value]) /
+    exchangeRates.value[fromCurrency.value]
   ).toFixed(2);
 };
 </script>
@@ -36,7 +61,7 @@ const convert = () => {
         </select>
       </div>
 
-      <button id="change-sides">⇄</button>
+      <button @click="changeSides" id="change-sides">⇄</button>
 
       <div class="main">
         <label>To</label>
@@ -48,7 +73,7 @@ const convert = () => {
       </div>
     </div>
 
-    <button @click="convert" id="convert">Convert</button>
+    <button @click="convertCurrency" id="convert">Convert</button>
 
     <div class="body">
       <div class="main">
@@ -59,6 +84,9 @@ const convert = () => {
         <label>Result</label>
         <input type="number" v-model="result" readonly />
       </div>
+    </div>
+    <div>
+      <h4>Lastly Updated: {{ lastlyUpdated }}</h4>
     </div>
   </section>
 </template>
