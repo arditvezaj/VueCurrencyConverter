@@ -1,10 +1,10 @@
 <script setup>
 import { ref } from "vue";
 
-const amount = ref();
-const result = ref();
 const fromCurrency = ref("USD");
 const toCurrency = ref("EUR");
+const amount = ref();
+const result = ref();
 const currencies = [
   "USD",
   "CHF",
@@ -20,9 +20,8 @@ const currencies = [
   "SAR",
   "RUB",
 ];
-const lastlyUpdated = ref();
-
 const exchangeRates = ref({});
+const lastlyUpdated = ref();
 
 fetch(
   `https://v6.exchangerate-api.com/v6/0714b1826cd73f6106ea6d5a/latest/${fromCurrency.value}`
@@ -50,7 +49,7 @@ const convertCurrency = () => {
 <template>
   <section>
     <h1>Money Converter</h1>
-    <h3>Easiest and simplest Money Converter in Internet</h3>
+    <h3>Easiest and simplest Currency Converter in Internet</h3>
     <div class="body">
       <div class="main">
         <label>From</label>
@@ -154,5 +153,23 @@ button:hover {
 #convert {
   padding: 0.5rem 1rem;
   border-radius: 8px;
+}
+
+@media (max-width: 48rem) {
+  h1 {
+    font-size: 2rem;
+  }
+  section {
+    margin: 4rem 1rem;
+  }
+  select,
+  input {
+    width: 7rem;
+    height: 2.2rem;
+  }
+
+  button {
+    font-size: 1.4rem;
+  }
 }
 </style>
