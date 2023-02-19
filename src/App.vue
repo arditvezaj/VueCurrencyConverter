@@ -92,7 +92,7 @@ const convertCurrency = () => {
 
 <style scoped>
 section {
-  margin: 0;
+  margin: 0rem;
   padding: 3rem 19rem;
   display: flex;
   flex-direction: column;
@@ -104,6 +104,10 @@ section {
 
 h1 {
   font-size: 3rem;
+}
+
+h3 {
+  text-align: center;
 }
 
 .body {
@@ -157,14 +161,14 @@ button:hover {
   border-radius: 8px;
 }
 
-@media (max-width: 48rem) {
+@media (max-width: 49rem) {
   h1 {
     font-size: 2rem;
   }
 
   section {
-    margin: 0.5rem;
-    padding: 1rem;
+    margin: 0;
+    padding: 1rem 0;
   }
 
   select,
@@ -174,7 +178,9 @@ button:hover {
   }
 
   button {
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 1.4rem;
   }
 }
