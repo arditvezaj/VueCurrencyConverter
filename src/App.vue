@@ -1,10 +1,10 @@
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
 const fromCurrency = ref("USD");
 const toCurrency = ref("EUR");
-const amount = ref();
-const result = ref();
+const amount = ref("");
+const result = ref("");
 const currencies = [
   "USD",
   "CHF",
@@ -32,17 +32,17 @@ fetch(
     exchangeRates.value = data.conversion_rates;
   });
 
+const preventCharacters = () => {
+  const validChars = /^[0-9+\-*/.]+$/;
+  if (!validChars.test(amount.value)) {
+    amount.value = amount.value.slice(0, -1);
+  }
+};
+
 const changeSides = () => {
   const temp = fromCurrency.value;
   fromCurrency.value = toCurrency.value;
   toCurrency.value = temp;
-};
-
-const convertCurrency = () => {
-  result.value = (
-    (amount.value * exchangeRates.value[toCurrency.value]) /
-    exchangeRates.value[fromCurrency.value]
-  ).toFixed(2);
 };
 </script>
 
@@ -72,8 +72,6 @@ const convertCurrency = () => {
       </div>
     </div>
 
-    <button @click="convertCurrency" id="convert">Convert</button>
-
     <div class="body">
       <div class="main">
         <label>Amount</label>
@@ -81,7 +79,18 @@ const convertCurrency = () => {
       </div>
       <div class="main">
         <label>Result</label>
-        <input type="number" v-model="result" readonly />
+        <input
+          type="number"
+          @input="preventCharacters"
+          :value="
+            (
+              (amount * exchangeRates[toCurrency]) /
+              exchangeRates[fromCurrency]
+            ).toFixed(2)
+          "
+          readonly
+        />
+        <h2>{{ result }}</h2>
       </div>
     </div>
     <div>
